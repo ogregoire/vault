@@ -21,15 +21,18 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import java.io.IOException;
+import com.google.common.jimfs.Configuration;
+import com.google.common.jimfs.Jimfs;
+
+import java.nio.file.FileSystem;
 
 /**
  *
  * @author Olivier Grégoire
  */
-public class ResourcesTest {
+public class MoreFilesTest {
 
-  public ResourcesTest() {
+  public MoreFilesTest() {
   }
 
   @BeforeClass
@@ -40,6 +43,8 @@ public class ResourcesTest {
   public static void tearDownClass() {
   }
 
+  private final FileSystem fs = Jimfs.newFileSystem(Configuration.unix());
+
   @Before
   public void setUp() {
   }
@@ -49,18 +54,31 @@ public class ResourcesTest {
   }
 
   /**
-   * Test of asByteSource method, of class Resources.
+   * Test of asByteSource method, of class MoreFiles.
    */
   @Test
-  public void testAsByteSource() throws IOException {
-
+  public void testAsByteSource() {
   }
 
   /**
-   * Test of asCharSource method, of class Resources.
+   * Test of asCharSource method, of class MoreFiles.
    */
   @Test
   public void testAsCharSource() {
+  }
+
+  /**
+   * Test of asByteSink method, of class MoreFiles.
+   */
+  @Test
+  public void testAsByteSink() {
+  }
+
+  /**
+   * Test of asCharSink method, of class MoreFiles.
+   */
+  @Test
+  public void testAsCharSink() {
   }
 
 }

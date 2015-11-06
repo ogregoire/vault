@@ -15,52 +15,17 @@
  */
 package be.fror.vault.common.io;
 
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
-
-import java.io.IOException;
-
 /**
  *
  * @author Olivier Grégoire
  */
-public class ResourcesTest {
+final class IoTestConstants {
 
-  public ResourcesTest() {
+  private IoTestConstants() {
   }
 
-  @BeforeClass
-  public static void setUpClass() {
-  }
-
-  @AfterClass
-  public static void tearDownClass() {
-  }
-
-  @Before
-  public void setUp() {
-  }
-
-  @After
-  public void tearDown() {
-  }
-
-  /**
-   * Test of asByteSource method, of class Resources.
-   */
-  @Test
-  public void testAsByteSource() throws IOException {
-
-  }
-
-  /**
-   * Test of asCharSource method, of class Resources.
-   */
-  @Test
-  public void testAsCharSource() {
-  }
+  static final String I18N
+      = "\u00CE\u00F1\u0163\u00E9\u0072\u00F1\u00E5\u0163\u00EE\u00F6"
+      + "\u00F1\u00E5\u013C\u00EE\u017E\u00E5\u0163\u00EE\u00F6\u00F1";
 
 }
