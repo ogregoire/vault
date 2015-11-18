@@ -15,7 +15,12 @@
  */
 package be.fror.vault.swing;
 
+import com.google.common.eventbus.EventBus;
+import com.google.common.eventbus.Subscribe;
+
 import java.awt.BorderLayout;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.inject.Inject;
 import javax.swing.JFrame;
@@ -28,16 +33,18 @@ import javax.swing.WindowConstants;
  *
  * @author Olivier Grégoire
  */
-class SwingVault {
+public final class SwingVault {
 
+  private final EventBus eventBus;
   private final ComponentFactory componentFactory;
 
   @Inject
-  SwingVault(ComponentFactory componentFactory) {
+  SwingVault(@Swing EventBus eventBus, ComponentFactory componentFactory) {
+    this.eventBus = eventBus;
     this.componentFactory = componentFactory;
   }
 
-  void start() {
+  public void launch() {
     SwingUtilities.invokeLater(this::initialize);
   }
 
@@ -52,11 +59,16 @@ class SwingVault {
     //initializeToolBar();
     initializeMainPanel(frame);
     initializeStatusBar(frame);
+
+    frame.setVisible(true);
   }
 
   private void initializeFrame(JFrame frame) {
+    frame.setSize(800, 600);
     frame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+    frame.addWindowListener(new VaultWindowListener());
     frame.setLayout(new BorderLayout());
+    frame.setLocationRelativeTo(null);
   }
 
   private void initializeMenu(JFrame frame) {
@@ -79,5 +91,17 @@ class SwingVault {
   private void initializeStatusBar(JFrame frame) {
 
   }
+  
+  @Subscribe
+  public void windowClosing(WindowClosingEvent e) {
+    SwingUtilities.invokeLater(e.getFrame()::dispose);
+  }
 
+  private class VaultWindowListener extends WindowAdapter {
+    @Override
+    public void windowClosing(WindowEvent e) {
+      eventBus.post(new WindowClosingEvent((JFrame)e.getWindow()));
+    }
+  }
+  
 }

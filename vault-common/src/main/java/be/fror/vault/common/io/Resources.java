@@ -17,6 +17,7 @@ package be.fror.vault.common.io;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.URL;
 import java.nio.charset.Charset;
 
@@ -29,28 +30,28 @@ public final class Resources {
   private Resources() {
   }
 
-  public static ByteSource asByteSource(URL url) {
+  public static ByteStream asByteStream(URL url) {
     if (url == null) {
       throw new NullPointerException();
     }
-    return new URLByteSource(url);
+    return new URLByteStream(url);
   }
 
-  private static class URLByteSource extends ByteSource {
+  private static class URLByteStream extends ByteStream {
 
     private final URL url;
 
-    private URLByteSource(URL url) {
+    private URLByteStream(URL url) {
       this.url = url;
     }
 
     @Override
-    public InputStream openStream() throws IOException {
+    public InputStream openInputStream() throws IOException {
       return url.openStream();
     }
   }
 
-  public static CharSource asCharSource(URL url, Charset charset) {
-    return asByteSource(url).asCharSource(charset);
+  public static CharStream asCharStream(URL url, Charset charset) {
+    return asByteStream(url).asCharStream(charset);
   }
 }

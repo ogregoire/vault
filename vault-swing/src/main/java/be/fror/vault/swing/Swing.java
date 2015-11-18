@@ -13,20 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package be.fror.vault.core.io;
+package be.fror.vault.swing;
 
-import be.fror.vault.common.io.ByteStream;
-import be.fror.vault.core.model.Vault;
+import com.google.inject.BindingAnnotation;
 
-import java.io.IOException;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 /**
  *
  * @author Olivier Grégoire
  */
-public class VaultReader {
-
-  public static Vault read(ByteStream stream) throws IOException {
-    return null;
-  }
+@Retention(RetentionPolicy.RUNTIME)
+@Target({ElementType.PARAMETER, ElementType.FIELD})
+@BindingAnnotation
+@interface Swing {
 }

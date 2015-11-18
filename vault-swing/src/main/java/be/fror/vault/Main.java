@@ -13,16 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package be.fror.vault.common.io;
+package be.fror.vault;
 
-import java.io.IOException;
-import java.io.Writer;
+import be.fror.vault.swing.SwingModule;
+import be.fror.vault.swing.SwingVault;
+
+import com.google.inject.Guice;
 
 /**
  *
  * @author Olivier Grégoire
  */
-public abstract class CharSink {
-
-  public abstract Writer openStream() throws IOException;
+public class Main {
+  public static void main(String[] args) {
+    Guice.createInjector(new SwingModule()).getInstance(SwingVault.class).launch();
+  }
 }

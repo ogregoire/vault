@@ -15,14 +15,10 @@
  */
 package be.fror.vault.common.io;
 
-import java.io.IOException;
-import java.io.Reader;
-
 /**
  *
  * @author Olivier Grégoire
  */
-public abstract class CharSource {
+public class StreamContext {
 
-  public abstract Reader openStream() throws IOException;
 }

@@ -33,7 +33,7 @@ public final class MoreFiles {
   private MoreFiles() {
   }
 
-  public static ByteSource asByteSource(Path path, OpenOption... options) {
+  public static ByteStream asByteStream(Path path, OpenOption... options) {
     if (path == null || options == null) {
       throw new NullPointerException();
     }
@@ -42,58 +42,32 @@ public final class MoreFiles {
         throw new NullPointerException();
       }
     }
-    return new PathByteSource(path, Arrays.copyOf(options, options.length));
+    return new PathByteStream(path, Arrays.copyOf(options, options.length));
   }
 
-  private static class PathByteSource extends ByteSource {
+  private static class PathByteStream extends ByteStream {
 
     private final Path path;
     private final OpenOption[] options;
 
-    private PathByteSource(Path path, OpenOption[] options) {
+    private PathByteStream(Path path, OpenOption[] options) {
       this.path = path;
       this.options = options;
     }
 
     @Override
-    public InputStream openStream() throws IOException {
+    public InputStream openInputStream() throws IOException {
       return Files.newInputStream(path, options);
     }
-  }
-
-  public static CharSource asCharSource(Path path, Charset charset, OpenOption... options) {
-    return asByteSource(path, options).asCharSource(charset);
-  }
-
-  public static ByteSink asByteSink(Path path, OpenOption... options) {
-    if (path == null || options == null) {
-      throw new NullPointerException();
-    }
-    for (OpenOption option : options) {
-      if (option == null) {
-        throw new NullPointerException();
-      }
-    }
-    return new PathByteSink(path, Arrays.copyOf(options, options.length));
-  }
-
-  private static class PathByteSink extends ByteSink {
-
-    private final Path path;
-    private final OpenOption[] options;
-
-    private PathByteSink(Path path, OpenOption[] options) {
-      this.path = path;
-      this.options = options;
-    }
 
     @Override
-    public OutputStream openStream() throws IOException {
+    public OutputStream openOutputStream() throws IOException {
       return Files.newOutputStream(path, options);
     }
   }
 
-  public static CharSink asCharSink(Path path, Charset charset, OpenOption... options) {
-    return asByteSink(path, options).asCharSink(charset);
+  public static CharStream asCharStream(Path path, Charset charset, OpenOption... options) {
+    return asByteStream(path, options).asCharStream(charset);
   }
+
 }

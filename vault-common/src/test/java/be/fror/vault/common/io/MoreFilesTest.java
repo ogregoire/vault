@@ -24,6 +24,7 @@ import org.junit.Test;
 import com.google.common.jimfs.Configuration;
 import com.google.common.jimfs.Jimfs;
 
+import java.io.IOException;
 import java.nio.file.FileSystem;
 
 /**
@@ -43,14 +44,16 @@ public class MoreFilesTest {
   public static void tearDownClass() {
   }
 
-  private final FileSystem fs = Jimfs.newFileSystem(Configuration.unix());
+  private FileSystem fs;
 
   @Before
   public void setUp() {
+    fs = Jimfs.newFileSystem(Configuration.unix());
   }
 
   @After
-  public void tearDown() {
+  public void tearDown() throws IOException {
+    fs.close();
   }
 
   /**

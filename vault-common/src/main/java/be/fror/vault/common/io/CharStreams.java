@@ -15,29 +15,29 @@
  */
 package be.fror.vault.common.io;
 
-import java.io.ByteArrayOutputStream;
 import java.io.EOFException;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.Reader;
+import java.io.StringWriter;
+import java.io.Writer;
 
 /**
  *
  * @author Olivier Grégoire
  */
-final class ByteStreams {
+final class CharStreams {
 
-  private ByteStreams() {
+  private CharStreams() {
   }
 
-  static final int BUF_SIZE = 8192;
+  static final int BUF_SIZE = 4096;
 
-  static long copy(InputStream from, OutputStream to)
+  static long copy(Reader from, Writer to)
       throws IOException {
     if (from == null || to == null) {
       throw new NullPointerException();
     }
-    byte[] buffer = new byte[BUF_SIZE];
+    char[] buffer = new char[BUF_SIZE];
     long total = 0;
     while (true) {
       int read = from.read(buffer);
@@ -49,26 +49,26 @@ final class ByteStreams {
     }
   }
 
-  static byte[] toByteArray(InputStream in) throws IOException {
-    ByteArrayOutputStream out = new ByteArrayOutputStream(in.available());
+  static String toString(Reader in) throws IOException {
+    StringWriter out = new StringWriter();
     copy(in, out);
-    return out.toByteArray();
+    return out.toString();
   }
 
-  static byte[] readFully(InputStream in, byte[] bytes) throws IOException {
-    return readFully(in, bytes, 0, bytes.length);
+  static char[] readFully(Reader in, char[] chars) throws IOException {
+    return readFully(in, chars, 0, chars.length);
   }
 
-  static byte[] readFully(InputStream in, byte[] bytes, int offset, int length) throws IOException {
-    int read = read(in, bytes, offset, length);
+  static char[] readFully(Reader in, char[] chars, int offset, int length) throws IOException {
+    int read = read(in, chars, offset, length);
     if (read != length) {
       throw new EOFException();
     }
-    return bytes;
+    return chars;
   }
 
-  static int read(InputStream in, byte[] bytes, int offset, int length) throws IOException {
-    if (in == null || bytes == null) {
+  static int read(Reader in, char[] chars, int offset, int length) throws IOException {
+    if (in == null || chars == null) {
       throw new NullPointerException();
     }
     if (length < 0) {
@@ -76,7 +76,7 @@ final class ByteStreams {
     }
     int total = 0;
     while (total < length) {
-      int read = in.read(bytes, offset + total, length - total);
+      int read = in.read(chars, offset + total, length - total);
       if (read == -1) {
         break;
       }

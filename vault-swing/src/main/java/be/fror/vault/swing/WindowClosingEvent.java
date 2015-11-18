@@ -13,20 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package be.fror.vault.core.io;
+package be.fror.vault.swing;
 
-import be.fror.vault.common.io.ByteStream;
-import be.fror.vault.core.model.Vault;
-
-import java.io.IOException;
+import javax.swing.JFrame;
 
 /**
  *
  * @author Olivier Grégoire
  */
-public class VaultReader {
+public final class WindowClosingEvent {
+  private final JFrame frame;
 
-  public static Vault read(ByteStream stream) throws IOException {
-    return null;
+  public WindowClosingEvent(JFrame frame) {
+    this.frame = frame;
   }
+
+  public JFrame getFrame() {
+    return frame;
+  }
+  
+  
 }

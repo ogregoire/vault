@@ -15,6 +15,7 @@
  */
 package be.fror.vault.swing;
 
+import javax.inject.Inject;
 import javax.swing.Action;
 
 /**
@@ -23,6 +24,10 @@ import javax.swing.Action;
  */
 class ActionManager {
 
+  @Inject
+  ActionManager() {
+  }
+  
   public Action getAction(String name) {
     return null;
   }
