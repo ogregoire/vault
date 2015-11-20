@@ -15,19 +15,15 @@
  */
 package be.fror.vault.swing;
 
-import com.google.inject.BindingAnnotation;
-
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
-
 /**
  *
  * @author Olivier Grégoire
  */
-@Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.PARAMETER, ElementType.FIELD, ElementType.METHOD})
-@BindingAnnotation
-@interface Swing {
+final class Constants {
+
+  private Constants() {
+  }
+
+  static final String ACTION_KEY = "action.key";
+
 }

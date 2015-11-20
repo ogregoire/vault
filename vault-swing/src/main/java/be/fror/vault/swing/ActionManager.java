@@ -15,6 +15,9 @@
  */
 package be.fror.vault.swing;
 
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
 import javax.inject.Inject;
 import javax.swing.Action;
 
@@ -24,11 +27,27 @@ import javax.swing.Action;
  */
 class ActionManager {
 
+  private final LocalizationService localizationService;
+
+  private final Map<String, Action> actions;
+
   @Inject
-  ActionManager() {
+  ActionManager(LocalizationService localizationService) {
+    this.localizationService = localizationService;
+    actions = new ConcurrentHashMap<>();
   }
-  
-  public Action getAction(String name) {
-    return null;
+
+  Action getAction(String name) {
+    return actions.computeIfAbsent(name, this::createAction);
+  }
+
+  private Action createAction(String name) {
+    Action action = null;
+
+    action.putValue(Constants.ACTION_KEY, name);
+
+    localizationService.register(action);
+
+    return action;
   }
 }
